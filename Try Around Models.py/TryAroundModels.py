@@ -386,8 +386,8 @@ def TryAroundModel_CNN(X_raw_text_train, X_raw_text_test, Y_train, Y_test):
 def TryAroundModel(X_train, X_test, Y_train, Y_test, X_raw_text_train = None, X_raw_text_test = None, Models = None):
     if not Models:
         Models = []
-        for i in np.nonzero([re.match("TryAroundModel", x) for x in locals().keys()])[0]:
-            Models.append(list(locals().keys())[i])
+        for i in np.nonzero([re.match("TryAroundModel", x) for x in globals().keys()])[0]:
+            Models.append(list(globals().keys())[i])
     
     accuracy_list = []
     processed_arg = [X_train, X_test, Y_train, Y_test]
@@ -406,7 +406,7 @@ def TryAroundModel(X_train, X_test, Y_train, Y_test, X_raw_text_train = None, X_
         elif m == "TryAroundModel_MPLNN":
             accuracy_list.append(TryAroundModel_MPLNN(*processed_arg))
 
-        if len(X_raw_text_train) != 0 and len(X_raw_text_test) != 0:
+        if X_raw_text_train is not None and X_raw_text_test is not None:
             raw_arg = [X_raw_text_train, X_raw_text_test, Y_train, Y_test]
             if m == "TryAroundModel_CNN":
                 accuracy_list.append(TryAroundModel_CNN(*raw_arg))
